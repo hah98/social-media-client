@@ -6,7 +6,9 @@
   "scripts": {
     "build": "sass src/scss:dist/css",
     "start": "sass --watch src/scss:dist/css & live-server",
-    "test": "jest",
+    "test": "npm run test:jest && npm run test:cypress",
+    "test:jest": "jest",
+    "test:cypress": "cypress run",
     "prepare": "husky install"
   },
   "keywords": [],
