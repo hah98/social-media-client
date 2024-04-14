@@ -24,4 +24,3 @@ To run the Jest tests:
 ```bash
 npm run test:jest
 npm run test:cypress
-
