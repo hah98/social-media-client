@@ -1,3 +1,4 @@
+//index.js (in the root directory of my project)
 require('dotenv').config(); // Load environment variables from .env file
 
 // Access and print the environment variable
