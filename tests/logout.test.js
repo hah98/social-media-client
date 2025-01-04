@@ -1,5 +1,4 @@
 import { logout } from "../src/js/api/auth/logout.js";
-import "../setupTest.js"; 
 
 describe("Logout Functionality", () => {
   beforeEach(() => {
