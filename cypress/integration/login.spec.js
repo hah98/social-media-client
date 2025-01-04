@@ -1,35 +1,36 @@
 /// login.spec.js
-
-console.log("Login Email:", Cypress.env("LOGIN_EMAIL"));
-console.log("Login Password:", Cypress.env("LOGIN_PASSWORD"));
-
-describe("Login", () => {
-  it("should fill in login form and successfully login", () => {
-    cy.visit("/");
-
-    cy.get("#registerModal").should("be.visible").within(() => {
-      cy.get("button.btn.btn-outline-success").contains("Login").click();
-    });
-
-    cy.get("#loginModal").should("exist");
-
-    const loginEmail = Cypress.env("LOGIN_EMAIL") ;
-    const loginPassword = Cypress.env("LOGIN_PASSWORD") ;
-
-    cy.get("#loginEmail")
-    .clear()
-    .should("be.visable")
-    .type(loginEmail);
-
-    cy.get("#loginPassword")
-    .clear()
-    .should("be.visable")
-    .type(loginPassword);
-
-    cy.get("#loginForm").submit();
-
-    // Verify login success (check localStorage or redirection)
-    cy.window().its("localStorage.token").should("exist");
-    cy.url().should("not.include", "/login");
+describe("Login porocess", () => {
+  beforeEach(() => {
+    /* First test */
+    cy.showHome();
   });
+
+  /* Second test */
+  it("shows the register form", () => {
+    cy.get("#registerForm").should("be.visible");
+  });
+
+/* Third test*/
+
+it("shows the login form", () => {
+  cy.showLoginForm();
+});
+
+it("Valid credentials (registered user) can log in", () => {
+  cy.showLoginForm();
+
+  cy.loginUser();
+
+   cy.window().its("localStorage.token").should("exist");  /* Making sure the token exists */
+   cy.url().should("not.include", "/login");  
+
+  /* Fouth test */
+  // In your login.spec.js
+/* Cypress.Commands.add("loginUser", () => {
+  cy.fixture("example").then((user) => {
+    cy.loginForm(user.email, Cypress.env("LOGIN_PASSWORD"));
+  });
+}); */
+
+});
 });
