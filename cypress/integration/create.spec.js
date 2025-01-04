@@ -1,30 +1,21 @@
-describe("Create Post", () => {
-  it("should create a new post", () => {
-    cy.visit("/");
+describe("Create Post", () => { 
+  beforeEach(() => {
+    cy.login(); // Log in before every test
+    cy.visit("?view=post"); // Navigate directly to the create post page
+  });
 
-    // Click on the New Post button
-    cy.contains("New Post").click();
+  it("should allow the user to create a post", () => {
+    // Verify the user is on the create post page
+    cy.url().should("include", "?view=post");
 
-    // Wait for the post form to load or the URL to change
-    cy.url()
-      .should("include", "/?view=post")
-      .then(() => {
-        // Check if the post form elements are visible
-        cy.get("#postTitle").should("be.visible");
+    // Fill in the necessary details for creating a post
+    cy.get("#postTitle").type("My First Post");
+    cy.get("#postContent").type("This is the content of my first post.");
 
-        // Fill out the post form
-        cy.get("#postTitle").type("Test Post Title");
-        cy.get("#postTags").type("test, cypress, automation");
-        cy.get("#postMedia").type("https://example.com/image.jpg");
-        cy.get("#postBody").type("This is a test post created by Cypress.");
+    // Submit the post
+    cy.get("#createPostForm").submit();
 
-        // Submit the form to create the post
-        cy.get('[data-action="submit"]').click();
-
-        // Wait for the redirection or navigation to complete
-        cy.url().should("not.include", "/?view=post");
-
-        cy.url().should("include", "/?view=profile");
-      });
+    // Validate that the post was created successfully
+    cy.get(".alert-success").should("contain", "Post created successfully!");
   });
 });

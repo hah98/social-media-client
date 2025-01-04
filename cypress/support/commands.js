@@ -1,3 +1,20 @@
+/// cypress/support/commands.js
+Cypress.Commands.add("login", () => {
+    cy.visit("/");
+  
+    cy.get('[data-auth="login"]').first().should("be.visible").click();
+    cy.get("#loginModal").should("exist");
+  
+    cy.get("#loginEmail").type(Cypress.env("LOGIN_EMAIL"));
+    cy.get("#loginPassword").type(Cypress.env("LOGIN_PASSWORD"));
+    cy.get("#loginForm").submit();
+  
+    // Ensure login is successful
+    cy.window().its("localStorage.token").should("exist");
+    cy.url().should("not.include", "/login");
+  });
+  
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite

@@ -10,7 +10,11 @@ describe("Login Function", () => {
       JSON.stringify({ profile: { accessToken: "testToken", profile: {} } }),
     );
 
-    const response = await login("test@example.com", "password123");
+    const response = await login(
+      process.env.LOGIN_EMAIL,
+      process.env.LOGIN_PASSWORD
+    );
+    
 
     expect(response.profile).toHaveProperty("accessToken");
   });

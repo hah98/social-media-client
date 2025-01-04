@@ -1,5 +1,5 @@
 import { logout } from "../src/js/api/auth/logout.js";
-import "/Users/hiboharun/Documents/GitHub/social-media-client/.setupTest.js"; // Absolute path
+import "../setupTest.js"; 
 
 describe("Logout Functionality", () => {
   beforeEach(() => {
