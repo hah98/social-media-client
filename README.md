@@ -24,7 +24,7 @@
 
    Example:
    ```env
-   LOGIN_EMAIL=test@example.com
+   LOGIN_EMAIL=name@stud.noroff.no
    LOGIN_PASSWORD=password123
    ```
 
@@ -40,7 +40,7 @@ Make sure you have the following installed:
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/social-media-client.git
+   git clone https://github.com/hah98/social-media-client.git
    ```
 
 2. Navigate to the project directory:
@@ -69,7 +69,7 @@ To start the project, use the following commands:
    npm run dev
    ```
 
-3. Open your browser and navigate to the local server URL (usually `http://localhost:3000`).
+3. Open your browser and navigate to the local server URL.
 
 ---
 
