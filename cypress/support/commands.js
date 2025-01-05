@@ -2,17 +2,16 @@
 Cypress.Commands.add("login", () => {
     cy.visit("/");  // Visit the homepage
     
-    cy.get('[data-auth="login"]').first().should("be.visible").click(); // Open login modal
-    cy.get("#loginModal").should("exist"); // Ensure the login modal is present
+    cy.get('[data-auth="login"]').first().should("be.visible").click(); 
+    cy.get("#loginModal").should("exist"); 
     
-    // Use the environment variables for email and password
     cy.get("#loginEmail").type(Cypress.env("LOGIN_EMAIL"));
     cy.get("#loginPassword").type(Cypress.env("LOGIN_PASSWORD"));
-    cy.get("#loginForm").submit(); // Submit the login form
+    cy.get("#loginForm").submit(); 
     
     // Ensure login is successful
-    cy.window().its("localStorage.token").should("exist"); // Check for the token in localStorage
-    cy.url().should("not.include", "/login");  // Ensure we're redirected away from login page
+    cy.window().its("localStorage.token").should("exist");
+    cy.url().should("not.include", "/login"); 
   });
   
   
@@ -38,7 +37,7 @@ Cypress.Commands.add("showHome", () => {
   /* Third test: Fill out and login with loginForm */
   
   Cypress.Commands.add("loginForm", (email, password) => {
-    cy.get("#loginForm").find("input[name=email]").type(Cypress.env("LOGIN_EMAIL"));  // Correctly using environment variable
+    cy.get("#loginForm").find("input[name=email]").type(Cypress.env("LOGIN_EMAIL"));
     cy.get("#loginForm").find("input[name=password]").type(Cypress.env("LOGIN_PASSWORD"));
     cy.get("#loginForm").find("button[type=submit]").click();
     cy.wait(500);
@@ -54,6 +53,25 @@ Cypress.Commands.add("showHome", () => {
   });
   
   
+//* Logout */
+
+Cypress.Commands.add("isLoggedIn", () => {
+  cy.window().then((win) => {
+    expect(win.localStorage.getItem("token")).to.be.a("string");
+  });
+});
+
+Cypress.Commands.add("logout", () => {
+    cy.get("button[data-auth=logout]").click();
+    cy.wait(600); 
+});
+
+Cypress.Commands.add("isLoggedOut", () => {
+  cy.window().then((win) => {
+    expect(win.localStorage.getItem("token")).to.be.null; 
+  });
+
+});
 
 // ***********************************************
 // This example commands.js shows you how to
